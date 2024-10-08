@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Egreso</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        function toggleBancoField() {
+            const medioPago = document.querySelector('select[name="medio_pago"]');
+            const bancoEntidad = document.querySelector('select[name="banco_entidad"]');
+            if (medioPago.value === "Tarjeta de Credito" || medioPago.value === "Tarjeta de Debito" || medioPago.value === "MODO") {
+                bancoEntidad.parentElement.style.display = "block";  // Mostrar campo de banco
+            } else {
+                bancoEntidad.parentElement.style.display = "none";  // Ocultar campo de banco
+                bancoEntidad.value = "";  // Limpiar selección
+            }
+        }
+
+        function calcularFechaUltimaCuota() {
+            const fechaEgreso = new Date(document.querySelector('input[name="fecha"]').value);
+            const cuotas = parseInt(document.querySelector('input[name="cuotas"]').value);
+            const fechaUltimaCuota = document.querySelector('input[name="fecha_ultima_cuota"]');
+
+            if (fechaEgreso && !isNaN(cuotas) && cuotas > 0) {
+                // Sumar meses a la fecha de egreso
+                fechaEgreso.setMonth(fechaEgreso.getMonth() + cuotas);
+                fechaUltimaCuota.value = fechaEgreso.toISOString().split('T')[0];  // Formato YYYY-MM-DD
+            } else {
+                fechaUltimaCuota.value = "";  // Limpiar si no hay fecha o cuotas válidas
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Agregar Egreso</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert alert-success" role="alert">
+                    {% for category, message in messages %}
+                        <div>{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form action="/egresos" method="POST">
+            <div class="mb-3">
+                <label for="monto" class="form-label">Monto:</label>
+                <input type="number" class="form-control" name="monto" required min="0">
+            </div>
+            <div class="mb-3">
+                <label for="categoria" class="form-label">Categoría:</label>
+                <select name="categoria" class="form-select" required>
+                    {% for categoria in categorias %}
+                        <option value="{{ categoria }}">{{ categoria }}</option>
+                    {% endfor %}
+                </select>
+                <a href="/agregar_categoria" class="btn btn-secondary mt-3">Agregar nueva categoría</a>
+            </div>
+            <div class="mb-3">
+                <label for="medio_pago" class="form-label">Medio de Pago:</label>
+                <select name="medio_pago" class="form-select" required onchange="toggleBancoField()">
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Tarjeta de Credito">Tarjeta de Crédito</option>
+                    <option value="Tarjeta de Debito">Tarjeta de Débito</option>
+                    <option value="MODO">MODO</option>
+                    <option value="Cuenta DNI">Cuenta DNI</option>
+                </select>
+            </div>
+            <div class="mb-3" style="display:none;">
+                <label for="banco_entidad" class="form-label">Banco:</label>
+                <select name="banco_entidad" class="form-select">
+                    <option value="">Ninguno</option>
+                    {% for banco in bancos %}
+                        <option value="{{ banco }}">{{ banco }}</option>
+                    {% endfor %}
+                </select>
+                <a href="/agregar_banco" class="btn btn-secondary mt-3">Agregar nuevo banco</a>
+            </div>
+            <div class="mb-3">
+                <label for="cuotas" class="form-label">Cuotas:</label>
+                <input type="number" class="form-control" name="cuotas" min="1" oninput="calcularFechaUltimaCuota()">
+            </div>
+            <div class="mb-3">
+                <label for="fecha" class="form-label">Fecha:</label>
+                <input type="date" class="form-control" name="fecha" required oninput="calcularFechaUltimaCuota()">
+            </div>
+            <div class="mb-3">
+                <label for="fecha_ultima_cuota" class="form-label">Fecha de Última Cuota:</label>
+                <input type="date" class="form-control" name="fecha_ultima_cuota" readonly>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar Egreso</button>
+        </form>
+        <a href="/transacciones" class="btn btn-secondary mt-3">Transacciones</a>
+        <a href="/" class="btn btn-secondary mt-3">Inicio</a>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
