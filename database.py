@@ -142,25 +142,36 @@ def obtener_usuario_por_id(user_id):
     conn.close()
     return user
 
+# Nueva función: Borrar todas las transacciones de un usuario
+def borrar_todas_transacciones(usuario_id):
+    conn = conectar()
+    c = conn.cursor()
+    c.execute("DELETE FROM transacciones WHERE usuario_id = ?", (usuario_id,))
+    conn.commit()
+    conn.close()
+
+# Nueva función: Obtener un egreso por su ID
+def obtener_transaccion_por_id(transaccion_id, tipo):
+    conn = conectar()
+    c = conn.cursor()
+    c.execute("SELECT * FROM transacciones WHERE id = ? AND tipo = ?", (transaccion_id, tipo))
+    transaccion = c.fetchone()
+    conn.close()
+    return transaccion
+
+# Nueva función: Actualizar un egreso
+def actualizar_egreso(transaccion_id, monto, categoria, medio_pago, banco, cuotas, fecha_ultima_cuota, fecha):
+    conn = conectar()
+    c = conn.cursor()
+    c.execute('''
+        UPDATE transacciones
+        SET monto = ?, categoria = ?, medio_pago = ?, banco = ?, cuotas = ?, fecha_ultima_cuota = ?, fecha = ?
+        WHERE id = ? AND tipo = 'Egreso'
+    ''', (monto, categoria, medio_pago, banco, cuotas, fecha_ultima_cuota, fecha, transaccion_id))
+    conn.commit()
+    conn.close()
+
 # Llamamos a la función para crear las tablas al inicio
 crear_tablas()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

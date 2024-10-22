@@ -11,11 +11,8 @@ app.secret_key = 'tu_clave_secreta'
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'  # Redirigir a esta ruta si no se ha iniciado sesión
-
-# Manejo de sesiones
 login_manager.session_protection = 'strong'
 
-# Procesador de contexto para inyectar el usuario en todas las plantillas
 @app.context_processor
 def inject_user():
     return dict(current_user=current_user)
@@ -116,6 +113,49 @@ def egresos():
     categorias = database.obtener_categorias()
     bancos = database.obtener_bancos()
     return render_template('egresos.html', categorias=categorias, bancos=bancos)
+
+# Nueva ruta: Borrar todas las transacciones
+@app.route('/borrar_todas_transacciones', methods=['POST'])
+@login_required
+def borrar_todas_transacciones():
+    try:
+        database.borrar_todas_transacciones(current_user.id)  # Pasar el ID del usuario
+        flash('Todas las transacciones han sido eliminadas.', 'success')
+    except Exception as e:
+        print(f"Error al borrar todas las transacciones: {e}")
+        flash('Hubo un error al eliminar las transacciones.', 'danger')
+
+    return redirect(url_for('transacciones'))
+
+
+# Nueva ruta: Editar un egreso específico
+@app.route('/editar_egreso/<int:id>', methods=['GET', 'POST'])
+@login_required
+def editar_egreso(id):
+    egreso = database.obtener_transaccion_por_id(id, 'Egreso')
+    
+    if request.method == 'POST':
+        try:
+            monto = float(request.form['monto'])
+            categoria = request.form['categoria']
+            medio_pago = request.form['medio_pago']
+            banco_entidad = request.form['banco_entidad'] if medio_pago in ['Tarjeta de Credito', 'Tarjeta de Debito', 'MODO'] else None
+            cuotas = int(request.form['cuotas']) if 'cuotas' in request.form else None
+            fecha_ultima_cuota = request.form['fecha_ultima_cuota'] if cuotas else None
+            fecha = request.form['fecha']
+
+            # Llamar a la función de actualizar el egreso en la base de datos
+            database.actualizar_egreso(id, monto, categoria, medio_pago, banco_entidad, cuotas, fecha_ultima_cuota, fecha)
+            flash('Egreso actualizado exitosamente', 'success')
+            return redirect(url_for('transacciones'))
+
+        except Exception as e:
+            print(f"Error al actualizar egreso: {e}")
+            flash('Hubo un error al actualizar el egreso.', 'danger')
+
+    categorias = database.obtener_categorias()
+    bancos = database.obtener_bancos()
+    return render_template('editar_egreso.html', egreso=egreso, categorias=categorias, bancos=bancos)
 
 @app.route('/transacciones')
 @login_required

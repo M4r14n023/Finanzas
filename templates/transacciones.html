@@ -41,10 +41,18 @@
                         <td>{{ transaccion[5] }}</td> <!-- Banco/Entidad -->
                         <td>{{ transaccion[6] }}</td> <!-- Cuotas -->
                         <td>{{ transaccion[7] }}</td> <!-- Fecha -->
+                        <td>
+                            {% if transaccion[1] == 'Egreso' %}
+                                <!-- Botón para editar la transacción (solo si es un Egreso) -->
+                                <a href="/editar_egreso/{{ transaccion[0] }}" class="btn btn-warning btn-sm">Editar</a>
+                            {% endif %}
+                        </td>
+                       
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
+        
 
         <h2 class="mt-4">Repartición de Egresos</h2>
         
@@ -54,6 +62,11 @@
         </div>
 
         <a href="/" class="btn btn-secondary mt-3">Inicio</a>
+                <!-- Botón para borrar todos los egresos -->
+                <form action="{{ url_for('borrar_todas_transacciones') }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas borrar todas las transacciones?');">
+                    <button type="submit" class="btn btn-danger mt-3">Borrar todas las Transacciones</button>
+                </form>
+                
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -104,6 +117,7 @@
     </script>
 </body>
 </html>
+
 
 
 
