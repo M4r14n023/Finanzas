@@ -10,6 +10,20 @@ body {
     background: linear-gradient(to right, #fdfcfb, #f1f0f0); /* Degradado cálido */
     padding: 20px;
 }
+.header {
+    display: flex; /* Usamos flexbox para alinear horizontalmente */
+    align-items: center; /* Alineamos verticalmente en el centro */
+    margin-bottom: 20px; /* Espaciado inferior */
+}
+.logo {
+    text-align: left; /* el logo a la izquierda */
+    margin-bottom: 20px; /* Margen inferior para separación */
+}
+
+.logo-image {
+    max-width: 70px; /* Ajusta el tamaño del logo según sea necesario */
+    height: auto; /* Mantiene la proporción del logo */
+}
 
 /* Ajuste del tamaño del icono de modo */
 .theme-toggle i {
