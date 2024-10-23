@@ -24,9 +24,38 @@
             </div>
             <button type="submit">Registrar</button>
         </form>
-        <p>¿Ya tienes una cuenta? <a href="{{ url_for('login') }}" class="btn-link">Inicia sesión aquí</a></p>
+        <p>¿Ya tienes una cuenta? <a href="{{ url_for('login') }}" class="btn-link">Inicia sesión</a></p>
+        <div id="timer" class="timer"></div>
     </div>
     <script src="{{ url_for('static', filename='theme-toggle.js') }}"></script>
+    <script>
+        // Establecemos el tiempo límite en segundos (30 segundos)
+        const timeLimit = 30; // 30 segundos
+        let timeRemaining = timeLimit; // Tiempo restante
+    
+        // Obtenemos el elemento del temporizador
+        const timerElement = document.getElementById('timer');
+    
+        // Actualizamos el temporizador en la pantalla cada segundo
+        const timerInterval = setInterval(() => {
+            if (timeRemaining > 0) {
+                timerElement.textContent = `Redirigiendo en ${timeRemaining} segundos...`;
+                timeRemaining--;
+            } else {
+                clearInterval(timerInterval); // Detenemos el temporizador
+                window.location.href = "{{ url_for('index') }}"; // Cambia esto a la ruta de tu página de inicio
+            }
+        }, 1000);
+    
+        // Redefinimos el temporizador si el usuario interactúa con el formulario
+        const form = document.querySelector('form');
+        form.addEventListener('input', () => {
+            timeRemaining = timeLimit; // Reiniciamos el tiempo
+        });
+    
+        // Iniciar el temporizador cuando se carga la página
+        timerElement.textContent = `Redirigiendo en ${timeRemaining} segundos...`; // Mensaje inicial
+    </script>
 </body>
 {% include 'footer.html' %}
 </html>

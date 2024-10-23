@@ -69,17 +69,18 @@ body.dark-mode td {
 
 /* Estilo de botones: colores cálidos y animaciones */
 button {
-    background-color: #1b33d0; /* Botón cálido */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    display: inline-block; /* Permite que el enlace se comporte como un bloque */
+    background-color: #1b33d0; /* Color de fondo */
+    color: white; /* Color del texto */
+    text-decoration: none; /* Sin subrayado */
+    padding: 10px 15px; /* Espaciado alrededor */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones suaves */
 }
 
 /* Modificación para el modo oscuro */
 body.dark-mode button {
-    background-color: #444; /* Color de fondo de botones en modo oscuro */
+    background-color: #e05a4f /* Color de fondo de botones en modo oscuro */
 }
 
 /* Hover para botones */
@@ -89,7 +90,7 @@ button:hover {
 
 /* Modificación para el hover en modo oscuro */
 body.dark-mode button:hover {
-    background-color: #666; /* Color de hover en modo oscuro */
+    background-color: #1b33d0 /* Color de hover en modo oscuro */
 }
 
 /* Mejoramos la estructura de los formularios */
@@ -230,3 +231,20 @@ body.dark-mode .footer p {
     margin: auto;  /* Centramos el contenido */
 }
 
+.footer {
+    background-color: linear-gradient(to right, #fdfcfb, #f1f0f0); /* Fondo claro */
+    padding: 10px 20px; /* Espaciado */
+    margin-top: 20px; /* Margen superior */
+    position: relative; /* Posicionamiento relativo */
+}
+
+
+.datetime {
+    font-size: 14px; /* Tamaño de fuente */
+    color: #333; /* Color oscuro por defecto */
+}
+
+/* Modo oscuro para el datetime */
+body.dark-mode .datetime {
+    color: #f8f9fa; /* Color claro en modo oscuro */
+}
