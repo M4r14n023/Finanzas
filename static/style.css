@@ -1,8 +1,34 @@
+* {
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+}
+
 /* Fondo cálido y fuente común de Apple */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     background: linear-gradient(to right, #fdfcfb, #f1f0f0); /* Degradado cálido */
     padding: 20px;
+}
+
+/* Ajuste del tamaño del icono de modo */
+.theme-toggle i {
+    font-size: 24px; /* Tamaño del icono */
+    cursor: pointer; /* El cursor cambiará a mano cuando pases sobre el icono */
+}
+
+body.dark-mode .theme-toggle i {
+    color: #333333; /* Color del icono en modo oscuro */
+}
+
+body .theme-toggle i {
+    color: #333333; /* Color del icono en modo claro */
+}
+
+/* Estilos para modo oscuro */
+body.dark-mode {
+    background-color: #000; /* Color de fondo oscuro */
+    color: #f8f9fa; /* Color de texto claro */
 }
 
 /* Aplicamos sombras suaves a las tablas */
@@ -11,7 +37,13 @@ table {
     border-collapse: collapse;
     margin-top: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+    background-color: #f9f9f9; /* Fondo claro por defecto */
+}
+
+/* Modificación para el modo oscuro */
+body.dark-mode table {
+    background-color: #333; /* Fondo oscuro para tablas */
+    color: #f8f9fa; /* Color de texto claro para tablas */
 }
 
 /* Colores personalizados y mejor espaciado en las tablas */
@@ -22,17 +54,22 @@ th, td {
 }
 
 th {
-    background-color: #ff6f61;  /* Tono cálido */
+    background-color: #ff6f61; /* Tono cálido */
     color: white;
 }
 
 td {
-    background-color: #ffffff;
+    background-color: #ffffff; /* Color de fondo de las celdas */
+}
+
+/* Modificación para el modo oscuro */
+body.dark-mode td {
+    background-color: #555; /* Fondo de las celdas en modo oscuro */
 }
 
 /* Estilo de botones: colores cálidos y animaciones */
 button {
-    background-color: #ff6f61; /* Botón cálido */
+    background-color: #1b33d0; /* Botón cálido */
     color: white;
     border: none;
     padding: 10px 20px;
@@ -40,8 +77,19 @@ button {
     transition: background-color 0.3s ease;
 }
 
+/* Modificación para el modo oscuro */
+body.dark-mode button {
+    background-color: #444; /* Color de fondo de botones en modo oscuro */
+}
+
+/* Hover para botones */
 button:hover {
     background-color: #e05a4f; /* Color de hover para botones */
+}
+
+/* Modificación para el hover en modo oscuro */
+body.dark-mode button:hover {
+    background-color: #666; /* Color de hover en modo oscuro */
 }
 
 /* Mejoramos la estructura de los formularios */
@@ -53,6 +101,54 @@ label {
     font-weight: bold;
     margin-top: 10px;
 }
+
+/* Estilos para los enlaces de botones */
+.btn-link {
+    display: inline-block; /* Permite que el enlace se comporte como un bloque */
+    background-color: #1b33d0; /* Color de fondo */
+    color: white; /* Color del texto */
+    text-decoration: none; /* Sin subrayado */
+    padding: 10px 15px; /* Espaciado alrededor */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones suaves */
+}
+
+.btn-link:hover {
+    background-color: #e05a4f; /* Color de fondo al pasar el mouse */
+    transform: scale(1.05); /* Efecto de aumento al pasar el mouse */
+}
+
+/* Agrupar los campos de entrada en una línea */
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-top: 10px; /* Espacio entre campos */
+}
+
+.input-group label {
+    flex: 1; /* Toma el espacio necesario */
+    margin-right: 10px; /* Espacio entre etiqueta y campo */
+}
+
+.input-group input {
+    flex: 2; /* Más espacio para el campo de entrada */
+}
+.timer {
+    font-size: 16px;
+    margin-top: 10px; /* Espaciado superior */
+    text-align: center; /* Centrar el texto */
+}
+
+/* Estilo del temporizador en modo claro */
+body .timer {
+    color: #333; /* Color oscuro en modo claro */
+}
+
+/* Estilo del temporizador en modo oscuro */
+body.dark-mode .timer {
+    color: #f8f9fa; /* Color claro en modo oscuro */
+}
+
 
 /* Navegación con menús */
 nav ul {
@@ -74,9 +170,9 @@ nav ul li a {
     border-radius: 5px;
 }
 
-nav ul li a:hover {
-    color: white; /* Cambia el color del texto */
-    background-color: #ff6f61; /* Agrega un fondo cálido al pasar el puntero sobre el enlace */
+/* Modificación para el modo oscuro */
+body.dark-mode nav ul li a {
+    color: #f8f9fa; /* Color de texto en modo oscuro */
 }
 
 /* Encabezados y espaciado general */
@@ -87,18 +183,50 @@ h1 {
     margin-bottom: 30px;
 }
 
+/* Modificación para el modo oscuro */
+body.dark-mode h1 {
+    color: #f8f9fa; /* Color de encabezados en modo oscuro */
+}
+
 .container {
     max-width: 800px;
     margin: auto;
     padding: 20px;
-    background-color: white;
+    background-color: white; /* Fondo claro por defecto */
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.grafico-container {
-    max-width: 280px;  /* Asegúrate de que el contenedor no se expanda más allá de 50px */
-    max-height: 280px; /* Asegúrate de que el contenedor no se expanda más allá de 50px */
-    margin: auto;     /* Centra el contenedor */
-    display: block;   /* Asegura que el contenedor sea un bloque */
+/* Modificación para el modo oscuro */
+body.dark-mode .container {
+    background-color: #444; /* Fondo oscuro para contenedor */
 }
+
+/* Estilos del footer */
+.footer {
+    background-color: linear-gradient(to right, #fdfcfb, #f1f0f0); /* Fondo claro, como el resto */
+    padding: 10px 0;  /* Reducimos el padding para que no sea tan grande */
+    margin-top: 20px;  /* Añadimos un margen superior para separarlo del contenido */
+    text-align: center; /* Centrar el contenido del footer */
+}
+
+.footer p {
+    margin: 0;
+    font-size: 14px;  /* Tamaño de fuente más pequeño para el footer */
+    color: #333;  /* Mantenemos el color del texto en tono oscuro */
+}
+
+/* Modificación para el modo oscuro en el footer */
+body.dark-mode .footer {
+    background-color: #444; /* Color de fondo oscuro */
+}
+
+body.dark-mode .footer p {
+    color: #f8f9fa; /* Color de texto blanco en el footer */
+}
+
+.footer .container {
+    max-width: 800px;  /* Alineamos el ancho con el resto de la página */
+    margin: auto;  /* Centramos el contenido */
+}
+

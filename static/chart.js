@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Código para crear el gráfico de torta
     const ctx = document.getElementById('graficoTorta').getContext('2d');
     const egresosData = JSON.parse(document.getElementById('egresosData').value);
 
@@ -35,4 +36,31 @@ document.addEventListener('DOMContentLoaded', function() {
             responsive: true
         }
     });
+
+    // Obtener el botón y el body
+    const themeToggleButton = document.getElementById("theme-toggle");
+    const body = document.body;
+
+    // Al cargar la página, verifica si hay una preferencia guardada
+    window.onload = () => {
+        if (localStorage.getItem("theme") === "dark") {
+            body.classList.add("dark-mode");
+            themeToggleButton.textContent = "Modo Claro";
+        }
+    };
+
+    // Función para cambiar el tema
+    themeToggleButton.addEventListener("click", () => {
+        body.classList.toggle("dark-mode"); // Alternar la clase dark-mode en el body
+        
+        // Cambiar el texto del botón según el tema activo
+        if (body.classList.contains("dark-mode")) {
+            themeToggleButton.textContent = "Modo Claro"; // Cambia a modo claro
+            localStorage.setItem("theme", "dark"); // Guarda la preferencia en localStorage
+        } else {
+            themeToggleButton.textContent = "Modo Oscuro"; // Cambia a modo oscuro
+            localStorage.setItem("theme", "light"); // Guarda la preferencia en localStorage
+        }
+    });
 });
+
