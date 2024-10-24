@@ -16,8 +16,10 @@ body {
     margin-bottom: 20px; /* Espaciado inferior */
 }
 .logo {
-    text-align: left; /* el logo a la izquierda */
-    margin-bottom: 20px; /* Margen inferior para separación */
+    position: absolute;
+    left: 15px; /* O ajusta este valor según el margen que prefieras */
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .logo-image {
@@ -122,7 +124,7 @@ label {
     display: inline-block; /* Permite que el enlace se comporte como un bloque */
     background-color: #1b33d0; /* Color de fondo */
     color: white; /* Color del texto */
-    text-decoration: none; /* Sin subrayado */
+    text-decoration: none !important; /* Sin subrayado */
     padding: 10px 15px; /* Espaciado alrededor */
     border-radius: 5px; /* Bordes redondeados */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones suaves */
@@ -196,6 +198,9 @@ h1 {
     color: #333;
     text-align: center;
     margin-bottom: 30px;
+    font-size: 2rem; /* Ajusta según el tamaño que desees */
+    margin: 0;
+    padding: 20px 0;
 }
 
 /* Modificación para el modo oscuro */

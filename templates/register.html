@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Registro</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}
+Registro - Mis Finanzas
+{% endblock %}
+
+{% block page_title %}
+Registro
+{% endblock %}
+
+{% block content %}
     <div class="container">
-        <h2>Registro</h2>
         <form method="POST" action="{{ url_for('register') }}">
             <div class="input-group">
                 <label for="username">Nombre de usuario:</label>
@@ -56,8 +57,6 @@
         // Iniciar el temporizador cuando se carga la página
         timerElement.textContent = `Redirigiendo en ${timeRemaining} segundos...`; // Mensaje inicial
     </script>
-</body>
-{% include 'footer.html' %}
-</html>
+{% endblock %}
 
 

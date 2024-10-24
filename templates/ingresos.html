@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Ingreso</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container">
-        <h1 class="text-center">Agregar Ingreso</h1>
+{% extends "base.html" %}
 
+{% block title %}
+Agregar Ingreso - Mis Finanzas
+{% endblock %}
+
+{% block page_title %}
+Agregar Ingreso
+{% endblock %}
+
+{% block content %}
+    <div class="container">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 <div class="alert alert-success" role="alert">
@@ -61,11 +60,7 @@
             }
         });
     </script>
-<!-- templates/footer.html -->
-{% include 'footer.html' %}
-<script src="{{ url_for('static', filename='theme-toggle.js') }}"></script>
-</body>
-</html>
+{% endblock %}
 
 
 

@@ -1,27 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='icon.png') }}" type="image/x-icon"> <!-- Favicon -->
-    <title>Mis finanzas</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- FontAwesome para los iconos de luna y sol -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}
+Inicio - Mis finanzas
+{% endblock %}
+
+{% block page_title %}
+Mis Finanzas
+{% endblock %}
+
+{% block content %}
     <!-- Agregar el icono de modo en la parte superior izquierda -->
     <div class="theme-toggle" style="position: absolute; top: 10px; left: 10px;">
         <i id="icon-mode" class="fas fa-sun"></i> <!-- Icono de sol por defecto -->
     </div>
     <div class="container">
-        <div class="header d-flex align-items-center">
-            <div class="logo me-3"> <!-- Agregamos un margen a la derecha -->
-                <img src="{{ url_for('static', filename='logo_finanzas.jpeg') }}" alt="Logo" class="logo-image">
-            </div>
-            <h1 class="display-4">Gestión de Finanzas Caseras</h1>
-        </div>
         <nav>
             <ul class="nav nav-pills">
                 <li class="nav-item"><a class="nav-link" href="/ingresos">Agregar Ingreso</a></li>
@@ -36,15 +28,8 @@
             </ul>
         </nav>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <script src="{{ url_for('static', filename='theme-toggle.js') }}"></script>
+{% endblock %}
 
-    <!-- templates/footer.html -->
-    {% include 'footer.html' %}
-</body>
-</html>
 
 
 
